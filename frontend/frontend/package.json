@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "esbuild": "^0.17.11",
     "vue": "^3.2.47"
   },
   "devDependencies": {

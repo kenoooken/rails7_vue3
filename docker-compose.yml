@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   db:
@@ -26,15 +26,20 @@ services:
       RAILS_ENV: development
       DATABASE_URL: mysql2://myapp:myapp_password@db/myapp_development
 
-  # frontend:
-  #   build: .
-  #   command: bash -c "npm install --arch=x64 --platform=linux esbuild && cd frontend && npm run dev"
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - "8080:8080"
-  #   depends_on:
-  #     - backend
+  frontend: # サービス名
+    build: # Dockerfileの設定
+      context: . # Dockerfileを置いているディレクトリ
+      dockerfile: Dockerfile.front # Dockerfileのファイル名
+    working_dir: /frontend # 作業ディレクトリを指定
+    volumes:
+      - ./frontend:/frontend:cached
+      # - node_modules:/frontend/node_modules
+
+    tty: true # コンテナを正常終了するのを防ぐ
+    ports:
+      - "8080:5173" # 公開用のポート指定。ホスト側:コンテナ側
+    command: sh -c "cd frontend && npm run dev --host" # viteの実行コマンド
 
 volumes:
   db-data:
+  # node_modules:

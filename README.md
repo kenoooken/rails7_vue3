@@ -1,7 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+frontend
+docker-compose run frontend npm --prefix ./frontend install
+
+
 
 Things you may want to cover:
 
